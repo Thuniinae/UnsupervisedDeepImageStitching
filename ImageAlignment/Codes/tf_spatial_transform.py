@@ -74,7 +74,7 @@ def transform(image2_tensor, H_tf):
             y1 = y0 + 1
 
 
-            x0 = tf.clip_by_value(x0, zero, max_x)      #将坐标划�?-127之间，超出部分用边界值表示，�?3�?表示
+            x0 = tf.clip_by_value(x0, zero, max_x) 
             x1 = tf.clip_by_value(x1, zero, max_x)
             y0 = tf.clip_by_value(y0, zero, max_y)
             y1 = tf.clip_by_value(y1, zero, max_y)
