@@ -1,9 +1,9 @@
 import tensorflow as tf
 import numpy as np
-import tensorflow.contrib.slim as slim
+import tf_slim as slim
 from tensorDLT import solve_DLT
 from tf_spatial_transform import transform
-from tensorflow.contrib.layers import conv2d
+from tensorflow.keras.layers import Conv2D as conv2d
 
 
 def H_model(inputs_aug, inputs, is_training, patch_size=128.):
