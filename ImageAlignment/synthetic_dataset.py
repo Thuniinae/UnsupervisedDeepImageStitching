@@ -1,3 +1,4 @@
+# synthetic_dataset.py
 from PIL import Image
 import numpy as np
 import glob
@@ -6,6 +7,8 @@ import random as rd
 import cv2
 import math
 
+dir_train = '/home/ub18/CV/UDIS-D/training'
+dir_synth = '/home/ub18/CV/synth'
 
 #Calculate cross product
 def cross(a, b, c):
@@ -31,13 +34,13 @@ def checkShape(a,b,c,d):
 # Load a random image from the dataset
 def load_random_image(path_source, size):
     #The size of the randomly sampled image must be greater than width*height
-    img_path = rd.choice(glob.glob(os.path.join(path_source, '*.jpg'))) 
+    img_path = rd.choice(glob.glob(os.path.join(path_source, '**/*.jpg'), recursive=True)) 
     img = Image.open(img_path)
     while True:
         #print(img.size)
         if img.size[0]>=size[0] and img.size[1]>=size[1] :
             break
-        img_path = rd.choice(glob.glob(os.path.join(path_source, '*.jpg'))) 
+        img_path = rd.choice(glob.glob(os.path.join(path_source, '**/*.jpg'))) 
         img = Image.open(img_path)
     #print('bingo')
     img_grey = img.resize(size)                
@@ -50,16 +53,16 @@ def load_random_image(path_source, size):
 def save_to_file(index, image1, image2, path_dest):
     if not os.path.exists(path_dest):
         os.makedirs(path_dest)
-    input1_path = path_dest +'//input1' 
-    input2_path = path_dest +'//input2'
+    input1_path = path_dest +'/input1' 
+    input2_path = path_dest +'/input2'
     
     if not os.path.exists(input1_path):
         os.makedirs(input1_path)
     if not os.path.exists(input2_path):
         os.makedirs(input2_path)
 
-    input1_path = path_dest +'//input1//' + index + '.jpg'
-    input2_path = path_dest +'//input2//'+ index + '.jpg'
+    input1_path = path_dest +'/input1/' + index + '.jpg'
+    input2_path = path_dest +'/input2/'+ index + '.jpg'
     image1 = Image.fromarray(image1.astype('uint8')).convert('RGB')
     image2 = Image.fromarray(image2.astype('uint8')).convert('RGB')
     image1.save(input1_path)
@@ -157,7 +160,7 @@ def generate_dataset(path_source, path_dest, rho, height, width, data, box, over
 
 
 
-raw_image_path = 'D://dataset//COCO//val2014'       
+raw_image_path = dir_train   
 box_size = 128
 height = 360
 width = 480
@@ -167,12 +170,12 @@ rho = int(box_size/5.0)
 ### generate training dataset
 print("Training dataset...")
 dataset_size = 50000
-generate_image_path = 'D://My Projects//VFIS-Net//dataset//training'
+generate_image_path = dir_synth
 generate_dataset(raw_image_path, generate_image_path, rho, height, width, dataset_size, box_size, overlap_rate)
 ### generate testing dataset
 print("Testing dataset...")
 dataset_size = 5000
-generate_image_path = 'D://My Projects//VFIS-Net//dataset//testing'
+generate_image_path = dir_synth
 generate_dataset(raw_image_path, generate_image_path, rho, height, width, dataset_size, box_size, overlap_rate)
 
 
