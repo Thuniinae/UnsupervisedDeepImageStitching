@@ -7,8 +7,8 @@ from models import H_estimator
 from utils import DataLoader, load, save
 import constant
 import skimage
+import tf_slim as slim
 
-slim = tf.contrib.slim
 
 os.environ['CUDA_DEVICES_ORDER'] = "PCI_BUS_ID"
 os.environ['CUDA_VISIBLE_DEVICES'] = constant.GPU
