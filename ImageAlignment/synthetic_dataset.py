@@ -175,7 +175,7 @@ generate_dataset(raw_image_path, generate_image_path, rho, height, width, datase
 ### generate testing dataset
 print("Testing dataset...")
 dataset_size = 5000
-generate_image_path = dir_synth+'/traning'
+generate_image_path = dir_synth+'/testing'
 generate_dataset(raw_image_path, generate_image_path, rho, height, width, dataset_size, box_size, overlap_rate)
 
 
