@@ -8,7 +8,7 @@ TEST_FOLDER = '/app/synth/testing'
 GPU = '0'
 
 #batch size for training
-TRAIN_BATCH_SIZE = 4
+TRAIN_BATCH_SIZE = 2
 
 #batch size for testing
 TEST_BATCH_SIZE = 1
