@@ -23,6 +23,8 @@ summary_dir = constant.SUMMARY_DIR
 snapshot_dir = constant.SNAPSHOT_DIR
 
 
+tf.compat.v1.disable_eager_execution()
+
 # define dataset
 with tf.compat.v1.name_scope('dataset'):
     ##########training###############
@@ -68,7 +70,7 @@ with tf.compat.v1.name_scope('training'):
     g_lrate = tf.compat.v1.train.exponential_decay(0.0001, g_step, decay_steps=50000/4, decay_rate=0.96)
     g_optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=g_lrate, name='g_optimizer')
     g_vars = tf.compat.v1.get_collection(key=tf.compat.v1.GraphKeys.TRAINABLE_VARIABLES, scope='generator')
-    
+
     grads = g_optimizer.compute_gradients(g_loss, var_list=g_vars)
     for i, (g, v) in enumerate(grads):
       if g is not None:
