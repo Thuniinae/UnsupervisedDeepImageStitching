@@ -1,6 +1,7 @@
-import tensorflow as tf
-import os
 
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
+import tensorflow as tf
 from models import H_estimator, disjoint_augment_image_pair
 from loss_functions import intensity_loss
 from utils import load, save, DataLoader
@@ -120,6 +121,7 @@ with tf.compat.v1.Session(config=config) as sess:
 
     print("============starting training===========")
     while _step < iterations:
+        print('epoches:{}'.format(_step))
         try:
             print('Training generator...')
             _, _g_lr, _step, _lp_loss, _g_loss, _summaries = sess.run([g_train_op, g_lrate, g_step, lp_loss,  g_loss, summary_op])
