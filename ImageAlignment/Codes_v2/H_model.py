@@ -54,8 +54,8 @@ def build_model(inputs, is_training):
         input1 = inputs[...,0:3]
         input2 = inputs[...,3:6]
         #resize to 128*128
-        input1 = tf.image.resize(input1, [128,128],method=0)
-        input2 = tf.image.resize(input2, [128,128],method=0)
+        input1 = tf.image.resize(input1, [128,128],method=tf.image.ResizeMethod.BILINEAR)
+        input2 = tf.image.resize(input2, [128,128],method=tf.image.ResizeMethod.BILINEAR)
         input1 = tf.expand_dims(tf.reduce_mean(input_tensor=input1, axis=3),[3])
         input2 = tf.expand_dims(tf.reduce_mean(input_tensor=input2, axis=3),[3])
         net1_f, net2_f, net3_f = _H_model(input1, input2, is_training)
