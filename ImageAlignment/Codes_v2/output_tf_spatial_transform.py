@@ -247,10 +247,10 @@ def Stitching_Domain_STN(inputs, H_tf, size, resized_shift):
     
     resized_height = out_height - out_height%8
     resized_width = out_width - out_width%8
-    img1_tf = tf.image.resize(img1_tf, [resized_height, resized_width], method=0)
-    warp_tf = tf.image.resize(warp_tf, [resized_height, resized_width], method=0)
-    mask1 = tf.image.resize(mask1, [resized_height, resized_width], method=0)
-    mask2 = tf.image.resize(mask2, [resized_height, resized_width], method=0)
+    img1_tf = tf.image.resize(img1_tf, [resized_height, resized_width], method=tf.image.ResizeMethod.BILINEAR)
+    warp_tf = tf.image.resize(warp_tf, [resized_height, resized_width], method=tf.image.ResizeMethod.BILINEAR)
+    mask1 = tf.image.resize(mask1, [resized_height, resized_width], method=tf.image.ResizeMethod.BILINEAR)
+    mask2 = tf.image.resize(mask2, [resized_height, resized_width], method=tf.image.ResizeMethod.BILINEAR)
 
     output = tf.concat([img1_tf, warp_tf, mask1, mask2], axis=3)
     
