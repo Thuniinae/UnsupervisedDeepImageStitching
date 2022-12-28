@@ -19,7 +19,7 @@ batch_size = constant.TEST_BATCH_SIZE
 # define dataset
 with tf.compat.v1.name_scope('dataset'):
     ##########testing###############
-    
+    tf.compat.v1.disable_eager_execution()
     test_inputs = tf.compat.v1.placeholder(shape=[batch_size, 128, 128, 3 * 2], dtype=tf.float32)
     print('test inputs = {}'.format(test_inputs))
 
