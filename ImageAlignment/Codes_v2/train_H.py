@@ -121,9 +121,8 @@ with tf.compat.v1.Session(config=config) as sess:
 
     print("============starting training===========")
     while _step < iterations:
-        print('epoches:{}'.format(_step))
         try:
-            print('Training generator...')
+            #('Training generator...')
             _, _g_lr, _step, _lp_loss, _g_loss, _summaries = sess.run([g_train_op, g_lrate, g_step, lp_loss,  g_loss, summary_op])
 
             if _step % 100 == 0:
@@ -134,7 +133,7 @@ with tf.compat.v1.Session(config=config) as sess:
                 summary_writer.add_summary(_summaries, global_step=_step)
                 print('Save summaries...')
 
-            if _step % 200000 == 0:
+            if _step % 100000 == 0:
                 save(saver, sess, snapshot_dir, _step)
 
         except tf.errors.OutOfRangeError:
