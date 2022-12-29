@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.contrib.layers import conv2d, max_pool2d, conv2d_transpose, fully_connected
+from tf_slim import conv2d, max_pool2d, conv2d_transpose, fully_connected
 
 
 
