@@ -5,7 +5,7 @@ TRAIN_FOLDER = '../../ImageAlignment/output/training'
 TEST_FOLDER = '../../ImageAlignment/output/testing'
 
 #GPU index
-GPU = '3'
+GPU = '0'
 
 #batch size for training
 TRAIN_BATCH_SIZE = 1
