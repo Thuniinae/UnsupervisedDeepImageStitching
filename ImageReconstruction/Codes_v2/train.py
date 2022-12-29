@@ -8,6 +8,7 @@ import constant
 import numpy as np
 import tensorlayer as tl
 
+tf.compat.v1.disable_eager_execution()
 
 os.environ['CUDA_DEVICES_ORDER'] = "PCI_BUS_ID"
 os.environ['CUDA_VISIBLE_DEVICES'] = constant.GPU
@@ -135,6 +136,7 @@ else:
 
 
 with tf.compat.v1.name_scope('training'):
+    
     g_loss = tf.add_n([hr_loss * lam_hr, consistency_loss * lam_consistency, lr_loss * lam_lr], name='g_loss')
     g_step = tf.Variable(0, dtype=tf.int32, trainable=False, name='g_step')
     g_lrate = tf.compat.v1.train.exponential_decay(0.0001, g_step, decay_steps=10000/1, decay_rate=0.98)
@@ -199,7 +201,8 @@ with tf.compat.v1.Session(config=config) as sess:
             count = count + 1
             if count >= 15:
                break
-        tl.files.assign_params(sess, params, feature_lr_stitched1)
+
+        tl.files.assign_weights(params, feature_lr_stitched1)
         print("load vgg19 pretrained model done!")
     
 
