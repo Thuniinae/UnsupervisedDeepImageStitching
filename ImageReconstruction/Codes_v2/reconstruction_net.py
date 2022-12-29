@@ -26,8 +26,8 @@ def ReconstructionNet(inputs):
     ################### low-resolution branch###############
     ########################################################
     # the input of low-resolution branch
-    warp1 = tf.image.resize(inputs[...,0:3], [256,256],method=0)
-    warp2 = tf.image.resize(inputs[...,3:6], [256,256],method=0)
+    warp1 = tf.image.resize(inputs[...,0:3], [256,256],method=tf.image.ResizeMethod.BILINEAR)
+    warp2 = tf.image.resize(inputs[...,3:6], [256,256],method=tf.image.ResizeMethod.BILINEAR)
     LR_inputs = tf.concat([warp1, warp2], axis=3)
     #low-resolution reconstruction branch (encoder)
     encoder_conv1_1 = conv2d(inputs=LR_inputs, num_outputs=64, kernel_size=3, activation_fn=tf.nn.relu)
@@ -62,7 +62,7 @@ def ReconstructionNet(inputs):
     ################### high-resolution branch###############
     ########################################################
     # the input of high-resolution branch
-    LR_SR = tf.image.resize(LR_output, [height, width],method=0)
+    LR_SR = tf.image.resize(LR_output, [height, width],method=tf.image.ResizeMethod.BILINEAR)
     HR_inputs = tf.concat([HR_inputs, LR_SR], axis=3)   
     # high-resolution reconstruction branch
     HR_conv1 = conv2d(inputs=HR_inputs, num_outputs=64, kernel_size=3, activation_fn=tf.nn.relu)

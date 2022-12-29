@@ -51,11 +51,11 @@ mask2 = (train_mask[...,3:6] + 1.)/2
 lam_lr =  100
 if lam_lr != 0:
     # low-resolution content mask
-    lr_content_mask1 = tf.image.resize(mask1, [256,256],method=0)
-    lr_content_mask2 = tf.image.resize(mask2, [256,256],method=0)
+    lr_content_mask1 = tf.image.resize(mask1, [256,256],method=tf.image.ResizeMethod.BILINEAR)
+    lr_content_mask2 = tf.image.resize(mask2, [256,256],method=tf.image.ResizeMethod.BILINEAR)
     # low-resolution input
-    lr_input1 = tf.image.resize(train_inputs[...,0:3], [256,256],method=0)
-    lr_input2 =  tf.image.resize(train_inputs[...,3:6], [256,256],method=0)
+    lr_input1 = tf.image.resize(train_inputs[...,0:3], [256,256],method=tf.image.ResizeMethod.BILINEAR)
+    lr_input2 =  tf.image.resize(train_inputs[...,3:6], [256,256],method=tf.image.ResizeMethod.BILINEAR)
     
     # low-resolution seam mask
     lr_seam_mask1 = lr_content_mask1*seammask_extraction(lr_content_mask2)
@@ -65,10 +65,10 @@ if lam_lr != 0:
     lr_seam_loss2 = intensity_loss(gen_frames=train_lr_stitched*lr_seam_mask2, gt_frames=lr_input2*lr_seam_mask2, l_num=1)
     
 
-    train_lr_stitched1_224 = tf.image.resize(train_lr_stitched*lr_content_mask1, size=[224, 224], method=0)  
-    train_lr_stitched2_224 = tf.image.resize(train_lr_stitched*lr_content_mask2, size=[224, 224], method=0)  
-    train_lr_warp1_224 = tf.image.resize(lr_input1*lr_content_mask1, size=[224, 224], method=0) 
-    train_lr_warp2_224 = tf.image.resize(lr_input2*lr_content_mask2, size=[224, 224], method=0)     
+    train_lr_stitched1_224 = tf.image.resize(train_lr_stitched*lr_content_mask1, size=[224, 224], method=tf.image.ResizeMethod.BILINEAR)  
+    train_lr_stitched2_224 = tf.image.resize(train_lr_stitched*lr_content_mask2, size=[224, 224], method=tf.image.ResizeMethod.BILINEAR)  
+    train_lr_warp1_224 = tf.image.resize(lr_input1*lr_content_mask1, size=[224, 224], method=tf.image.ResizeMethod.BILINEAR) 
+    train_lr_warp2_224 = tf.image.resize(lr_input2*lr_content_mask2, size=[224, 224], method=tf.image.ResizeMethod.BILINEAR)     
 
     feature_lr_stitched1, _ = Vgg19_simple_api((train_lr_stitched1_224 + 1) / 2, reuse=False)
     feature_lr_stitched2, _  = Vgg19_simple_api((train_lr_stitched2_224 + 1) / 2, reuse=True)
@@ -91,8 +91,8 @@ if lam_hr != 0:
     hr_size = [tf.shape(input=train_inputs)[1], tf.shape(input=train_inputs)[2]]
     
     # high-resolution seam mask
-    hr_seam_mask1 = tf.image.resize(lr_seam_mask1, size=hr_size, method=0) 
-    hr_seam_mask2 = tf.image.resize(lr_seam_mask2, size=hr_size, method=0) 
+    hr_seam_mask1 = tf.image.resize(lr_seam_mask1, size=hr_size, method=tf.image.ResizeMethod.BILINEAR) 
+    hr_seam_mask2 = tf.image.resize(lr_seam_mask2, size=hr_size, method=tf.image.ResizeMethod.BILINEAR) 
     # high-resolution seam loss
     hr_seam_loss1 = intensity_loss(gen_frames=train_hr_stitched*hr_seam_mask1, gt_frames=train_inputs[...,0:3]*hr_seam_mask1, l_num=1)
     hr_seam_loss2 = intensity_loss(gen_frames=train_hr_stitched*hr_seam_mask2, gt_frames=train_inputs[...,3:6]*hr_seam_mask2, l_num=1)
@@ -101,10 +101,10 @@ if lam_hr != 0:
     # mask1 ---- high-resolution content mask 1
     # mask2 ---- high-resolution content mask 2
     
-    train_hr_stitched1_224 = tf.image.resize(train_hr_stitched*mask1, size=[224, 224], method=0)  
-    train_hr_stitched2_224 = tf.image.resize(train_hr_stitched*mask2, size=[224, 224], method=0)  
-    train_hr_warp1_224 = tf.image.resize(train_inputs[...,0:3]*mask1, size=[224, 224], method=0) 
-    train_hr_warp2_224 = tf.image.resize(train_inputs[...,3:6]*mask2, size=[224, 224], method=0)     
+    train_hr_stitched1_224 = tf.image.resize(train_hr_stitched*mask1, size=[224, 224], method=tf.image.ResizeMethod.BILINEAR)  
+    train_hr_stitched2_224 = tf.image.resize(train_hr_stitched*mask2, size=[224, 224], method=tf.image.ResizeMethod.BILINEAR)  
+    train_hr_warp1_224 = tf.image.resize(train_inputs[...,0:3]*mask1, size=[224, 224], method=tf.image.ResizeMethod.BILINEAR) 
+    train_hr_warp2_224 = tf.image.resize(train_inputs[...,3:6]*mask2, size=[224, 224], method=tf.image.ResizeMethod.BILINEAR)     
 
     _, feature_hr_stitched1 = Vgg19_simple_api((train_hr_stitched1_224 + 1) / 2, reuse=True)
     _, feature_hr_stitched2 = Vgg19_simple_api((train_hr_stitched2_224 + 1) / 2, reuse=True)
@@ -126,7 +126,7 @@ else:
 # define content consistency loss
 lam_consistency = 1
 if lam_consistency != 0:
-    train_hr_stitched_downsample = tf.image.resize(train_hr_stitched, size=[256,256], method=0)  
+    train_hr_stitched_downsample = tf.image.resize(train_hr_stitched, size=[256,256], method=tf.image.ResizeMethod.BILINEAR)  
     consistency_loss = intensity_loss(gen_frames=train_hr_stitched_downsample, gt_frames=train_lr_stitched, l_num=1)
 else:
     consistency_loss = tf.constant(0.0, dtype=tf.float32)
