@@ -17,7 +17,7 @@ TEST_BATCH_SIZE = 1
 ITERATIONS = 200000
 
 # checkpoints path
-SNAPSHOT_DIR = "./checkpoints"
+SNAPSHOT_DIR = "./checkpoint_pretrained"
 
 #sumary path
 SUMMARY_DIR = "./summary"
