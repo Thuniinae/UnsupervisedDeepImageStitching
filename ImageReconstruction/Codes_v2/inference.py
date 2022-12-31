@@ -2,12 +2,13 @@ import tensorflow as tf
 import numpy as np
 import cv2
 import os
+import glob
 
 from models import reconstruction
 from utils import DataLoader, load, save
 import constant
 
-
+tf.compat.v1.disable_eager_execution()
 
 os.environ['CUDA_DEVICES_ORDER'] = "PCI_BUS_ID"
 os.environ['CUDA_VISIBLE_DEVICES'] = constant.GPU
@@ -52,7 +53,7 @@ with tf.compat.v1.Session(config=config) as sess:
         print(ckpt)
         load(loader, sess, ckpt)
         print("============")
-        length = 1106
+        length = len(glob.glob(os.path.join(test_folder, 'warp1/*.jpg')))
         
         for i in range(0, length):
             input_clip = np.expand_dims(data_loader.get_image_clips(i), axis=0)
