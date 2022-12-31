@@ -2,7 +2,7 @@ import tensorflow as tf
 import os
 import numpy as np
 import cv2
-
+import glob
 
 from models import H_estimator, output_H_estimator
 from utils import DataLoader, load, save
@@ -59,7 +59,7 @@ with tf.compat.v1.Session(config=config) as sess:
         print("generating aligned images for training set")
         # dataset
         data_loader = DataLoader(train_folder)
-        length = 10440
+        length = len(glob.glob(os.path.join(train_folder, 'input1/*.jpg')))
         for i in range(0, length):
             input_clip = np.expand_dims(data_loader.get_data_clips(i, None, None), axis=0)
             size_clip = np.expand_dims(data_loader.get_size_clips(i), axis=0)
@@ -93,7 +93,7 @@ with tf.compat.v1.Session(config=config) as sess:
         print("generating aligned images for testing set")
         # dataset
         data_loader = DataLoader(test_folder)
-        length = 1106
+        length = len(glob.glob(os.path.join(test_folder, 'input1/*.jpg')))
         for i in range(0, length):
             input_clip = np.expand_dims(data_loader.get_data_clips(i, None, None), axis=0)
             size_clip = np.expand_dims(data_loader.get_size_clips(i), axis=0)
