@@ -1,8 +1,9 @@
+WORKSPACE = '../../..'
 #training dataset path
-TRAIN_FOLDER = '/app/synth/traning'
+TRAIN_FOLDER = WORKSPACE+'/UDIS-D/testing'
 
 #testing dataset path
-TEST_FOLDER = '/app/synth/testing'
+TEST_FOLDER = WORKSPACE+'/UDIS-D/testing'
 
 #GPU index
 GPU = '0'
@@ -17,7 +18,7 @@ TEST_BATCH_SIZE = 1
 ITERATIONS = 1000000
 
 # checkpoints path
-SNAPSHOT_DIR = "./checkpoints_homo"
+SNAPSHOT_DIR = "./checkpoint_pretrained"
 
 #sumary path
 SUMMARY_DIR = "./summary"
