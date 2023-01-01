@@ -1,8 +1,10 @@
+#WORKSPACE = '../../ImageAlignment/output/'
+WORKSPACE = '../../../Multi-Grid-Deep-Homography/output/'
 #training dataset path
-TRAIN_FOLDER = '../../ImageAlignment/output/training'
+TRAIN_FOLDER = WORKSPACE+'training'
 
 #testing dataset path
-TEST_FOLDER = '../../ImageAlignment/output/testing'
+TEST_FOLDER = WORKSPACE+'testing'
 
 #GPU index
 GPU = '0'

@@ -54,7 +54,7 @@ with tf.compat.v1.Session(config=config) as sess:
         load(loader, sess, ckpt)
         print("============")
         length = len(glob.glob(os.path.join(test_folder, 'warp1/*.jpg')))
-        out_path = "../results/"
+        out_path = "../results_Multi/"
         if not os.path.exists(out_path):
             os.makedirs(out_path)
         for i in range(0, length):
