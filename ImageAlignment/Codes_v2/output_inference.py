@@ -60,6 +60,16 @@ with tf.compat.v1.Session(config=config) as sess:
         # dataset
         data_loader = DataLoader(train_folder)
         length = len(glob.glob(os.path.join(train_folder, 'input1/*.jpg')))
+             #create folder if not exist
+        out_path = "../output/training"
+        if not os.path.exists(out_path+"/mask1"):
+            os.makedirs(out_path+"/mask1")
+        if not os.path.exists(out_path+"/mask2"):
+            os.makedirs(out_path+"/mask2")
+        if not os.path.exists(out_path+"/warp1"):
+            os.makedirs(out_path+"/warp1")
+        if not os.path.exists(out_path+"/warp2"):
+            os.makedirs(out_path+"/warp2")
         for i in range(0, length):
             input_clip = np.expand_dims(data_loader.get_data_clips(i, None, None), axis=0)
             size_clip = np.expand_dims(data_loader.get_size_clips(i), axis=0)
@@ -72,13 +82,13 @@ with tf.compat.v1.Session(config=config) as sess:
             mask1 = coarsealignment[...,6:9] * 255
             mask2 = coarsealignment[...,9:12] * 255
             
-            path1 = '../output/training/warp1/' + str(i+1).zfill(6) + ".jpg"
+            path1 = out_path+'/warp1/' + str(i+1).zfill(6) + ".jpg"
             cv2.imwrite(path1, warp1)
-            path2 = '../output/training/warp2/' + str(i+1).zfill(6) + ".jpg"
+            path2 = out_path+'/warp2/' + str(i+1).zfill(6) + ".jpg"
             cv2.imwrite(path2, warp2)
-            path3 = '../output/training/mask1/' + str(i+1).zfill(6) + ".jpg"
+            path3 = out_path+'/mask1/' + str(i+1).zfill(6) + ".jpg"
             cv2.imwrite(path3, mask1)
-            path4 = '../output/training/mask2/' + str(i+1).zfill(6) + ".jpg"
+            path4 = out_path+'/mask2/' + str(i+1).zfill(6) + ".jpg"
             cv2.imwrite(path4, mask2)
                    
             print('i = {} / {}'.format(i+1, length))
@@ -94,6 +104,16 @@ with tf.compat.v1.Session(config=config) as sess:
         # dataset
         data_loader = DataLoader(test_folder)
         length = len(glob.glob(os.path.join(test_folder, 'input1/*.jpg')))
+        #create folder if not exist
+        out_path = "../output/testing"
+        if not os.path.exists(out_path+"/mask1"):
+            os.makedirs(out_path+"/mask1")
+        if not os.path.exists(out_path+"/mask2"):
+            os.makedirs(out_path+"/mask2")
+        if not os.path.exists(out_path+"/warp1"):
+            os.makedirs(out_path+"/warp1")
+        if not os.path.exists(out_path+"/warp2"):
+            os.makedirs(out_path+"/warp2")
         for i in range(0, length):
             input_clip = np.expand_dims(data_loader.get_data_clips(i, None, None), axis=0)
             size_clip = np.expand_dims(data_loader.get_size_clips(i), axis=0)
@@ -106,13 +126,13 @@ with tf.compat.v1.Session(config=config) as sess:
             mask1 = coarsealignment[...,6:9] * 255
             mask2 = coarsealignment[...,9:12] * 255
             
-            path1 = '../output/testing/warp1/' + str(i+1).zfill(6) + ".jpg"
+            path1 = out_path+'/warp1/' + str(i+1).zfill(6) + ".jpg"
             cv2.imwrite(path1, warp1)
-            path2 = '../output/testing/warp2/' + str(i+1).zfill(6) + ".jpg"
+            path2 = out_path+'/warp2/' + str(i+1).zfill(6) + ".jpg"
             cv2.imwrite(path2, warp2)
-            path3 = '../output/testing/mask1/' + str(i+1).zfill(6) + ".jpg"
+            path3 = out_path+'/mask1/' + str(i+1).zfill(6) + ".jpg"
             cv2.imwrite(path3, mask1)
-            path4 = '../output/testing/mask2/' + str(i+1).zfill(6) + ".jpg"
+            path4 = out_path+'/mask2/' + str(i+1).zfill(6) + ".jpg"
             cv2.imwrite(path4, mask2)
                      
             print('i = {} / {}'.format(i+1, length))
