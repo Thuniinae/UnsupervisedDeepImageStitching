@@ -1,9 +1,9 @@
 WORKSPACE = '../../..'
 #training dataset path
-TRAIN_FOLDER = WORKSPACE+'/UDIS-D/training'
+TRAIN_FOLDER = WORKSPACE+'/dummy'
 
 #testing dataset path
-TEST_FOLDER = WORKSPACE+'/UDIS-D/testing'
+TEST_FOLDER = WORKSPACE+'/test50'
 
 #GPU index
 GPU = '0'
