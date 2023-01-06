@@ -54,14 +54,16 @@ with tf.compat.v1.Session(config=config) as sess:
         load(loader, sess, ckpt)
         print("============")
         length = len(glob.glob(os.path.join(test_folder, 'warp1/*.jpg')))
-        
+        out_path = "../results/"
+        if not os.path.exists(out_path):
+            os.makedirs(out_path)
         for i in range(0, length):
             input_clip = np.expand_dims(data_loader.get_image_clips(i), axis=0)
             _, stitch_result = sess.run([lr_test_stitched, hr_test_stitched], feed_dict={test_inputs: input_clip})
             
             stitch_result = (stitch_result+1) * 127.5    
             stitch_result = stitch_result[0]
-            path = "../results/" + str(i+1).zfill(6) + ".jpg"
+            path = out_path + str(i+1).zfill(6) + ".jpg"
             cv2.imwrite(path, stitch_result)
             print('i = {} / {}'.format( i, length))
             
