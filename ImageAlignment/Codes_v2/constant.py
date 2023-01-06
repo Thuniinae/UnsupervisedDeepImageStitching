@@ -1,6 +1,6 @@
 WORKSPACE = '../../..'
 #training dataset path
-TRAIN_FOLDER = WORKSPACE+'/UDIS-D/testing'
+TRAIN_FOLDER = WORKSPACE+'/UDIS-D/training'
 
 #testing dataset path
 TEST_FOLDER = WORKSPACE+'/UDIS-D/testing'
