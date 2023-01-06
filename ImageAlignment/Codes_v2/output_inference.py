@@ -61,7 +61,7 @@ with tf.compat.v1.Session(config=config) as sess:
         data_loader = DataLoader(train_folder)
         length = len(glob.glob(os.path.join(train_folder, 'input1/*.jpg')))
              #create folder if not exist
-        out_path = "../output/training"
+        out_path = "../output_test50"
         if not os.path.exists(out_path+"/mask1"):
             os.makedirs(out_path+"/mask1")
         if not os.path.exists(out_path+"/mask2"):
@@ -105,7 +105,7 @@ with tf.compat.v1.Session(config=config) as sess:
         data_loader = DataLoader(test_folder)
         length = len(glob.glob(os.path.join(test_folder, 'input1/*.jpg')))
         #create folder if not exist
-        out_path = "../output/testing"
+        out_path = "../output_test50"
         if not os.path.exists(out_path+"/mask1"):
             os.makedirs(out_path+"/mask1")
         if not os.path.exists(out_path+"/mask2"):
