@@ -46,7 +46,7 @@ class DataLoader(object):
         images = glob.glob(os.path.join(self.dir, '*'))
         for image in sorted(images):
             image_name = image.split('/')[-1]
-            if image_name == 'warp1' or image_name == 'warp2' or image_name == 'mask1' or image_name == 'mask2':
+            if image_name == 'warp1' or image_name == 'warp2' or image_name == 'mask1' or image_name == 'mask2'or image_name == 'warp3' or image_name == 'mask3':
                 self.images[image_name] = {}
                 self.images[image_name]['path'] = image
                 self.images[image_name]['frame'] = glob.glob(os.path.join(image, '*.jpg'))
@@ -59,8 +59,9 @@ class DataLoader(object):
         batch = []
         image_info_list = list(self.images.values())
         
-        batch.append(np_load_input(image_info_list[2]['frame'][index]))
         batch.append(np_load_input(image_info_list[3]['frame'][index]))
+        batch.append(np_load_input(image_info_list[4]['frame'][index]))
+        batch.append(np_load_input(image_info_list[5]['frame'][index]))
        
         return np.concatenate(batch, axis=2)
 
