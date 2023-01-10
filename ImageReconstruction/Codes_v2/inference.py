@@ -67,7 +67,7 @@ with tf.compat.v1.Session(config=config) as sess:
             
             stitch_result = (stitch_result+1) * 127.5    
             stitch_result = stitch_result[0]
-            #stitch_result = cv2.resize(stitch_result,(2443,2154))
+            stitch_result = cv2.resize(stitch_result,(1500,380))
 
             name = data_loader['warp1']['frame'][i].split('/')[-1]
             path = out_path + name
