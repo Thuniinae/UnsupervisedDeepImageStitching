@@ -63,10 +63,7 @@ with tf.compat.v1.Session(config=config) as sess:
 
             #stich warp1,warp2
             _, stitch_result = sess.run([lr_test_stitched, hr_test_stitched], feed_dict={test_inputs: input_clip[...,0:6]})
-            
-            #stich warp1+warp2,warp3
-            input_clip[...,3:6]=stitch_result
-            _, stitch_result = sess.run([lr_test_stitched, hr_test_stitched], feed_dict={test_inputs: input_clip[...,3:9]})
+        
             
             stitch_result = (stitch_result+1) * 127.5    
             stitch_result = stitch_result[0]
